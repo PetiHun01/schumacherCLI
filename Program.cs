@@ -32,27 +32,30 @@ namespace schumacherCLI
             Dictionary<string, int> hibak = new();
             for (int i = 0; i < versenyek.Count; i++)
             {
-                if (hibak.ContainsKey(versenyek[i].Status))
+                if (versenyek[i].Position == 0)
                 {
-                    hibak[versenyek[i].Status]++;
-                }
-                else
-                {
-                    hibak.Add(versenyek[i].Status, 1);
+                    if (hibak.ContainsKey(versenyek[i].Status))
+                    {
+                        hibak[versenyek[i].Status]++;
+                    }
+                    else
+                    {
+                        hibak.Add(versenyek[i].Status, 1);
+                    }
                 }
             }
             Console.WriteLine("Hibastatisztika:");
-            for (int i = 0; i < hibak.Count; i++)
-            {
-                Console.WriteLine($"\t{hibak.ElementAt(i).Key}: {hibak.ElementAt(i).Value}");
-            }
-            //foreach (var hiba in hibak)
+            //for (int i = 0; i < hibak.Count; i++)
             //{
-            //    if(hiba.Value > 2 && hiba.Key != "Finished")
-            //    {
-            //        Console.WriteLine($"\t{hiba.Key}: {hiba.Value}");
-            //    }
+            //    Console.WriteLine($"\t{hibak.ElementAt(i).Key}: {hibak.ElementAt(i).Value}");
             //}
+            foreach (var hiba in hibak)
+            {
+                if (hiba.Value > 2)
+                {
+                    Console.WriteLine($"\t{hiba.Key}: {hiba.Value}");
+                }
+            }
         }
     }
 }
